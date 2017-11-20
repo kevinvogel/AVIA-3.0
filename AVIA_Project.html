@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<title>AVIA :: Annotation, Visualization and Impact Analysis</title>
+		<style>
+		.navbar {
+		    overflow: hidden;
+		    background-color: #333;
+		    font-family: Arial;
+		}
+
+		.navbar a {
+		    float: left;
+		    font-size: 12px;
+		    color: white;
+		    text-align: center;
+		    padding: 14px 16px;
+		    text-decoration: none;
+		}
+
+		.dropdown {
+		    float: left;
+		    overflow: hidden;
+		}
+
+		.dropdown .dropbtn {
+		    cursor: pointer;
+		    font-size: 12px;
+		    border: none;
+		    outline: none;
+		    color: white;
+		    padding: 14px 16px;
+		    background-color: inherit;
+		}
+
+		.navbar a:hover, .dropdown:hover .dropbtn {
+		    background-color: gray;
+		}
+
+		.dropdown-content {
+		    display: none;
+		    position: absolute;
+		    background-color: #f9f9f9;
+		    min-width: 160px;
+		    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		    z-index: 1;
+		}
+
+		.dropdown-content a {
+		    float: none;
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		    text-align: left;
+		}
+
+		.dropdown-content a:hover {
+		    background-color: #ddd;
+		}
+
+		.show {
+		    display: block;
+		}
+
+		input[type=text] {
+		    width: 100px;
+		    box-sizing: border-box;
+		    border: 2px solid #ccc;
+		    border-radius: 4px;
+		    font-size: 12px;
+		    background-color: white;
+		    /*background-image: url(searchicon.png);*/
+		    background-position: 8px 8px;
+		    background-repeat: no-repeat;
+		    padding: 10px 14px;
+		    -webkit-transition: width 0.4s ease-in-out;
+		    transition: width 0.4s ease-in-out;
+		}
+
+		input[type=text]:focus {
+		    width: 100%;
+		}
+		</style>
+
+	</head>
+
+	<body>
+
+	  <div class="logo-left"  style="height:82px;">
+		  <a href="/apps/site/default" title="AVIA home page">
+				<a href="https://avia-abcc.ncifcrf.gov/apps/site/sub_analysis/?id=3" target="_blank" ><img src="/Users/kevinvogel/Desktop/avia_logo_01.png" width="360px" height="82px" alt="AVIA logo" title="Link to: AVIA Website" /></a>
+				<img src="/Users/kevinvogel/Desktop/avia_logo_02.png" width="360px" height="82px" alt="Analysis of Genomic Variations with AVIA" />
+			</a>
+		</div>
+		<div id="bg" style="display:none"></div>
+		<div class="navbar">
+			<a href="https://avia-abcc.ncifcrf.gov/apps/site/sub_analysis/?id=3">Home</a>
+			<a href="#about">About</a>
+			<a href="https://www.gtexportal.org/home/">Gene Information</a>
+			<a href="#organ_tissue_gene_expression">Organ Tissue Gene Expression</a>
+			<a href="#gene_expression_tpm_across_all_tissue_types">Gene Expression TPM Across All Tissue Types</a>
+			<a href="#GTEx Gene Page">GTEx Gene Page</a>
+		  <div class="dropdown">
+		    <button class="dropbtn" onclick="myFunction()">Sources<i class="fa fa-caret-down"></i></button>
+		    <div class="dropdown-content" id="myDropdown">
+					<a href="https://www.gtexportal.org/home/datasets">GTEx Portal</a>
+				  <a href="#TCGA GDC Data Portalh">TCGA GDC Data Portal</a>
+				  <a href="https://cancergenome.nih.gov/">NIH TCGA</a>
+				  <a href="http://www.cbioportal.org/data_sets.jsp" target="_blank">cBio Portal</a>
+				  <a href="https://www.cancer.gov/about-nci/organization/ccg">Center for Cancer Genomics</a>
+		    </div>
+				<form><input type="text" name="search" placeholder="Search..."></form>
+		  </div>
+		</div>
+
+		<script>
+		/* When the user clicks on the button,
+		toggle between hiding and showing the dropdown content */
+		function myFunction() {
+		    document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(e) {
+		  if (!e.target.matches('.dropbtn')) {
+		    var myDropdown = document.getElementById("myDropdown");
+		      if (myDropdown.classList.contains('show')) {
+		        myDropdown.classList.remove('show');
+		      }
+		  }
+		}
+		</script>
+
+		<h2><font face = "Arial">Expression</h2>
+
+		<h3><font face = "Arial">AVIA Tissue Expression and Visualization</h3>
+
+		<h5><font face="Arial">***Insert tool description here***</font></h5>
+
+		<h4> <font face = "Arial">Section I.  Input Data (Required)  </font></h4>
+
+		<form action="/apps/site/upload_viz" method="post" name="myform" enctype="multipart/form-data">
+		<input type="hidden" name="user_internal" value="0"></input>
+		<input type="hidden" id="user_modulesid" name="user_modulesid" value="3"></input>
+
+		<table id="formatted">
+			<tr><td><font face = "Arial">Search By Tumor Site:</td><td><input type="text" name="user_user.id" size="50" placeholder="(i.e. Prostate, Breast, etc.)"></input></td></tr>
+		</table>
+
+		<div class="submit">
+			<input type="submit" value="Submit Request" onclick="processComment();" />
+		</div>
+
+		<center>
+   	<a href="https://ncifrederick.cancer.gov" target="_blank" ><img src="/Users/kevinvogel/Desktop/footer_logo_nci_black.png" width="52" height="33"
+	   alt="National Cancer Institute" title="Link to: National Cancer Institute Website" hspace="30" /></a>
+    <a href="http://www.nih.gov/" target="_blank" ><img src="/Users/kevinvogel/Desktop/footer_logo_nih_black.png" width="47" height="47"
+	   alt="National Institutes of Health" title="Link to: National Institutes of Health Website" hspace="30" /></a>
+    <a href="http://www.dhhs.gov/" target="_blank"><img src="/Users/kevinvogel/Desktop/footer_logo_dhhs_black.png" width="46" height="47"
+	   alt="Department of Health and Human Services" title="Link to: Department of Health and Human Services Website" hspace="30" /></a>
+		<a href="http://frederick.cancer.gov/" target="_blank" ><img src="/Users/kevinvogel/Desktop/FNL_logo.png" width="156" height="29"
+	   alt="FNL" title="Link to: Frederick National Lab for Cancer Research Website" hspace="30" /></a>
+	 </center>
+
+	</body>
+
+</html>
